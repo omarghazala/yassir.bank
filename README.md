@@ -1,4 +1,4 @@
-<h2>My Posts Application</h2>
+<h2>Yassir Bank Application</h2>
 
 - Yassir Bank is a backend Java API to a fake financial institution using Java and Spring
 
