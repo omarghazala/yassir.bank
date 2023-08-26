@@ -8,6 +8,7 @@ import com.ghazala.yassir.bank.entity.Customer;
 import com.ghazala.yassir.bank.exceptions.BankAccountNotFoundException;
 import com.ghazala.yassir.bank.exceptions.CustomerNotFoundException;
 import com.ghazala.yassir.bank.exceptions.InsufficientFundsException;
+import com.ghazala.yassir.bank.exceptions.NegativeFundsException;
 import com.ghazala.yassir.bank.mapper.BankAccountMapper;
 import com.ghazala.yassir.bank.repository.BankAccountRepository;
 import com.ghazala.yassir.bank.repository.CustomerRepository;
@@ -25,10 +26,14 @@ public class BankAccountServiceImpl implements BankAccountService{
     CustomerRepository customerRepository;
 
     @Override
-    public BankAccountDTO createBankAccount(Long customerId, BankAccountDTO bankAccountDTO) throws CustomerNotFoundException {
+    public BankAccountDTO createBankAccount(Long customerId, BankAccountDTO bankAccountDTO) throws CustomerNotFoundException, NegativeFundsException {
         Customer customer = customerRepository.findById(customerId).orElseThrow(
                 ()-> new CustomerNotFoundException("Customer not found with ID : "+customerId)
         );
+
+        if(bankAccountDTO.getInitialDeposit()<=0){
+            throw new NegativeFundsException("Only Positive Funds Allowed");
+        }
 
         BankAccount createdBankAccount = BankAccountMapper.bankAccountDtoToBankAccount(bankAccountDTO,customer);
         BankAccount bankAccountCreated = bankAccountRepository.save(createdBankAccount);

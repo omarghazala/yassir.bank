@@ -4,6 +4,7 @@ import com.ghazala.yassir.bank.dto.BankAccountBalanceDTO;
 import com.ghazala.yassir.bank.dto.BankAccountDTO;
 import com.ghazala.yassir.bank.exceptions.BankAccountNotFoundException;
 import com.ghazala.yassir.bank.exceptions.CustomerNotFoundException;
+import com.ghazala.yassir.bank.exceptions.NegativeFundsException;
 import com.ghazala.yassir.bank.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class BankAccountController {
 
     @PostMapping("/create/{customerId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<BankAccountDTO> createBankAccount(@PathVariable long customerId, @RequestBody BankAccountDTO bankAccountDTO) throws CustomerNotFoundException {
+    public ResponseEntity<BankAccountDTO> createBankAccount(@PathVariable long customerId, @RequestBody BankAccountDTO bankAccountDTO) throws CustomerNotFoundException, NegativeFundsException {
         BankAccountDTO createdAccount = bankAccountService.createBankAccount(customerId,bankAccountDTO);
         return new ResponseEntity<>(createdAccount,HttpStatus.CREATED);
     }

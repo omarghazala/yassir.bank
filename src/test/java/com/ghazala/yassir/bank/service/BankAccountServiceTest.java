@@ -6,6 +6,7 @@ import com.ghazala.yassir.bank.entity.BankAccount;
 import com.ghazala.yassir.bank.entity.Customer;
 import com.ghazala.yassir.bank.exceptions.BankAccountNotFoundException;
 import com.ghazala.yassir.bank.exceptions.CustomerNotFoundException;
+import com.ghazala.yassir.bank.exceptions.NegativeFundsException;
 import com.ghazala.yassir.bank.mapper.BankAccountMapper;
 import com.ghazala.yassir.bank.repository.BankAccountRepository;
 import com.ghazala.yassir.bank.repository.CustomerRepository;
@@ -36,7 +37,7 @@ public class BankAccountServiceTest {
 
 
     @Test
-    public void bankAccountService_CreateBankAccount_ReturnOneEntry() throws CustomerNotFoundException {
+    public void bankAccountService_CreateBankAccount_ReturnOneEntry() throws CustomerNotFoundException, NegativeFundsException {
         Customer customer  = Customer.builder().id(1L).name("Omar Ghazala").build();
 
         BankAccountDTO bankAccountDTO = BankAccountDTO.builder()
