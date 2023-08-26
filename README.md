@@ -10,7 +10,7 @@
 
 - Clone project and run it.
 - Check http://localhost:8080/ for API
-- Check http://localhost:8080/h2-console for H2 database
+- Check http://localhost:8080/h2-console for H2 database  , use username : sa / password : password
 
 <h2>User Guide</h2>
 
